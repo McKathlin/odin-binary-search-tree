@@ -1,0 +1,27 @@
+{
+  "name": "odin-binary-search-tree",
+  "version": "1.0.0",
+  "description": "A binary search tree implemented as part of The Odin Project curriculum",
+  "keywords": [
+    "binary",
+    "search",
+    "tree",
+    "data",
+    "structure"
+  ],
+  "homepage": "https://github.com/McKathlin/odin-binary-search-tree#readme",
+  "bugs": {
+    "url": "https://github.com/McKathlin/odin-binary-search-tree/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/McKathlin/odin-binary-search-tree.git"
+  },
+  "license": "ISC",
+  "author": "McKathlin",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js"
+  }
+}
