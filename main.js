@@ -34,7 +34,7 @@ logTests(leaningTree);
 function logTests(tree) {
   console.log('=============');
   tree.prettyPrint();
-  console.log('Depth:', tree.depth());
+  console.log('Height:', tree.height());
   console.log(`Range: ${tree.findMinimum()} to ${tree.findMaximum()}`);
   console.log("Balanced?", tree.isBalanced());
 }

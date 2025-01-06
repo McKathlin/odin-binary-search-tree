@@ -48,7 +48,7 @@ export default (function() {
       // and then deleting the node the swap was made from.
       // For balance, we take the nearest value on the deeper side.
       let sourceBranch, nearestValue;
-      if (this.depth(branch.left) > this.depth(branch.right)) {
+      if (this.height(branch.left) > this.height(branch.right)) {
         sourceBranch = branch.left;
         nearestValue = this.findMaximum(branch.left);
       } else {
@@ -58,16 +58,6 @@ export default (function() {
       branch.data = nearestValue;
       this.deleteItem(nearestValue, sourceBranch);
       return branch;
-    }
-
-    depth(branch = this._root) {
-      if (branch == null) {
-        return 0;
-      }
-
-      const leftDepth = branch.left ? this.depth(branch.left) : 0;
-      const rightDepth = branch.right ? this.depth(branch.right) : 0;
-      return 1 + Math.max(leftDepth, rightDepth);
     }
 
     find(value, branch = this._root) {
@@ -106,6 +96,16 @@ export default (function() {
       return !!this.find(value);
     }
 
+    height(branch = this._root) {
+      if (branch == null) {
+        return 0;
+      }
+
+      const leftHeight = branch.left ? this.height(branch.left) : 0;
+      const rightHeight = branch.right ? this.height(branch.right) : 0;
+      return 1 + Math.max(leftHeight, rightHeight);
+    }
+
     insert(value, branch = this._root) {
       if (branch == null) {
         const newNode = new Node(value);
@@ -130,10 +130,10 @@ export default (function() {
         return true;
       }
 
-      // Check if depths on each side are near equal.
-      const leftDepth = this.depth(branch.left);
-      const rightDepth = this.depth(branch.right);
-      if (Math.abs(leftDepth - rightDepth) > 1) {
+      // Check if sides have near equal heights.
+      const leftHeight = this.height(branch.left);
+      const rightHeight = this.height(branch.right);
+      if (Math.abs(leftHeight - rightHeight) > 1) {
         return false;
       }
 
