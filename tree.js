@@ -17,32 +17,48 @@ export default (function() {
       return root;
     }
 
-    /*
     deleteItem(value, branch = this._root) {
-      // Check if there's nothing to delete.
+      // Check if there's anything here.
       if (branch == null) {
         return null;
       }
       
       // Recurse left or right as needed.
       if (value < branch.data) {
-        branch.left = deleteItem(value, branch.left);
-      } else if (value > branch.data) {
-        branch.right = deleteItem(value, branch.right);
+        branch.left = this.deleteItem(value, branch.left);
+        return branch;
+      }
+      if (value > branch.data) {
+        branch.right = this.deleteItem(value, branch.right);
+        return branch;
       }
 
       // If we're here, this is the node to delete.
       if (!branch.left || !branch.right) {
         // Replace this node with its only branch (or with nothing).
-        return branch.left ?? branch.right ?? null;
+        let newBranch = branch.left ?? branch.right ?? null;
+        if (branch == this._root) {
+          this._root = newBranch;
+        }
+        return newBranch;
       }
 
-      // If we're here, we must delete a node that branches on both sides.
+      // If we're here, we must delete this node that branches on both sides.
       // We do this by swapping its nearest value up to replace it,
       // and then deleting the node the swap was made from.
-      throw new Error("Delete not implemeted");
+      // For balance, we take the nearest value on the deeper side.
+      let sourceBranch, nearestValue;
+      if (this.depth(branch.left) > this.depth(branch.right)) {
+        sourceBranch = branch.left;
+        nearestValue = this.findMaximum(branch.left);
+      } else {
+        sourceBranch = branch.right;
+        nearestValue = this.findMinimum(branch.right);
+      }
+      branch.data = nearestValue;
+      this.deleteItem(nearestValue, sourceBranch);
+      return branch;
     }
-    */
 
     depth(branch = this._root) {
       if (branch == null) {
