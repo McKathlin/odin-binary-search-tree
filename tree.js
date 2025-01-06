@@ -149,6 +149,30 @@ export default (function() {
       return true;
     }
 
+    levelOrder(callback) {
+      if (!callback) {
+        throw new Error("levelOrder requires a callback function " +
+          "that takes an argument for the current node's data.");
+      }
+
+      if (!this._root) {
+        return; // Nothing to iterate.
+      }
+
+      // Breadth first traversal
+      let queue = [this._root];
+      for (let i = 0; i < queue.length; i++) {
+        let currentNode = queue[i];
+        callback(currentNode.data);
+        if (currentNode.left) {
+          queue.push(currentNode.left);
+        }
+        if (currentNode.right) {
+          queue.push(currentNode.right);
+        }
+      }
+    }
+
     // prettyPrint code courtesy of The Odin Project
     prettyPrint(node = this._root, prefix = "", isLeft = true) {
       if (node === null) {

@@ -37,4 +37,5 @@ function logTests(tree) {
   console.log('Height:', tree.height());
   console.log(`Range: ${tree.findMinimum()} to ${tree.findMaximum()}`);
   console.log("Balanced?", tree.isBalanced());
+  tree.levelOrder((value) => console.log("Level order", value));
 }
