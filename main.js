@@ -39,4 +39,6 @@ function logTests(tree) {
   console.log("Balanced?", tree.isBalanced());
   tree.inOrder((value) => console.log("In order", value));
   tree.levelOrder((value) => console.log("Level order", value));
+  tree.preOrder((value) => console.log("Pre-order", value));
+  tree.postOrder((value) => console.log("Post-order", value));
 }

@@ -192,6 +192,25 @@ export default (function() {
       }
     }
 
+    preOrder(callback, branch = this._root) {
+      if (!callback) {
+        throw new Error("preOrder requires a callback function " +
+          "that takes an argument for the current node's data.");
+      }
+
+      if (branch == null) {
+        return; // Nothing to iterate.
+      }
+
+      callback(branch.data);
+      if (branch.left) {
+        this.preOrder(callback, branch.left);
+      }
+      if (branch.right) {
+        this.preOrder(callback, branch.right);
+      }
+    }
+
     // prettyPrint code courtesy of The Odin Project
     prettyPrint(node = this._root, prefix = "", isLeft = true) {
       if (node === null) {
@@ -205,6 +224,25 @@ export default (function() {
         this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
       }
     };
+
+    postOrder(callback, branch = this._root) {
+      if (!callback) {
+        throw new Error("postOrder requires a callback function " +
+          "that takes an argument for the current node's data.");
+      }
+
+      if (branch == null) {
+        return; // Nothing to iterate.
+      }
+
+      if (branch.left) {
+        this.postOrder(callback, branch.left);
+      }
+      if (branch.right) {
+        this.postOrder(callback, branch.right);
+      }
+      callback(branch.data);
+    }
    
   }
 
