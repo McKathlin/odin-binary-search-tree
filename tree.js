@@ -17,7 +17,39 @@ export default (function() {
       return root;
     }
 
+    find(value, branch = this._root) {
+      if (branch == null) {
+        return null;
+      } else if (value == branch.data) {
+        return branch;
+      } else if (value < branch.data) {
+        return this.find(value, branch.left);
+      } else {
+        return this.find(value, branch.right);
+      }
+    }
 
+    has(value) {
+      return !!this.find(value);
+    }
+
+    insert(value, branch = this._root) {
+      if (branch == null) {
+        const newNode = new Node(value);
+        if (this._root == null) {
+          this._root = newNode;
+        }
+        return newNode;
+      }
+
+      // On a non-null branch, we return the branch with the value inserted.
+      if (value < branch.data) {
+        branch.left = this.insert(value, branch.left);
+      } else if (value > branch.data) {
+        branch.right = this.insert(value, branch.right);
+      }
+      return branch;
+    }
 
     // prettyPrint code courtesy of The Odin Project
     prettyPrint(node = this._root, prefix = "", isLeft = true) {
@@ -41,8 +73,6 @@ export default (function() {
       this.left = null;
       this.right = null;
     }
-
-    // TODO: Anything else needed here?
   }
 
   return Tree;
