@@ -108,6 +108,31 @@ export default (function() {
       return branch;
     }
 
+    isBalanced(branch = this._root) {
+      // A null branch is balanced trivially.
+      if (branch == null) {
+        return true;
+      }
+
+      // Check if depths on each side are near equal.
+      const leftDepth = this.depth(branch.left);
+      const rightDepth = this.depth(branch.right);
+      if (Math.abs(leftDepth - rightDepth) > 1) {
+        return false;
+      }
+
+      // Check if each side is balanced.
+      if (!this.isBalanced(branch.left)) {
+        return false;
+      }
+      if (!this.isBalanced(branch.right)) {
+        return false;
+      }
+
+      // If we're here, all balance tests have passed.
+      return true;
+    }
+
     // prettyPrint code courtesy of The Odin Project
     prettyPrint(node = this._root, prefix = "", isLeft = true) {
       if (node === null) {

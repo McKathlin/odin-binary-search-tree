@@ -23,9 +23,17 @@ biggerTree.insert(12);
 biggerTree.insert(100);
 logTests(biggerTree);
 
+let leaningTree = new Tree([3, 6]);
+leaningTree.insert(7);
+leaningTree.insert(8);
+leaningTree.insert(9);
+leaningTree.insert(10);
+logTests(leaningTree);
+
 function logTests(tree) {
   console.log('=============');
   tree.prettyPrint();
   console.log('Depth:', tree.depth());
   console.log(`Range: ${tree.findMinimum()} to ${tree.findMaximum()}`);
+  console.log("Balanced?", tree.isBalanced());
 }
