@@ -44,6 +44,16 @@ export default (function() {
     }
     */
 
+    depth(branch = this._root) {
+      if (branch == null) {
+        return 0;
+      }
+
+      const leftDepth = branch.left ? this.depth(branch.left) : 0;
+      const rightDepth = branch.right ? this.depth(branch.right) : 0;
+      return 1 + Math.max(leftDepth, rightDepth);
+    }
+
     find(value, branch = this._root) {
       if (branch == null) {
         return null;
