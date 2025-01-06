@@ -17,6 +17,33 @@ export default (function() {
       return root;
     }
 
+    /*
+    deleteItem(value, branch = this._root) {
+      // Check if there's nothing to delete.
+      if (branch == null) {
+        return null;
+      }
+      
+      // Recurse left or right as needed.
+      if (value < branch.data) {
+        branch.left = deleteItem(value, branch.left);
+      } else if (value > branch.data) {
+        branch.right = deleteItem(value, branch.right);
+      }
+
+      // If we're here, this is the node to delete.
+      if (!branch.left || !branch.right) {
+        // Replace this node with its only branch (or with nothing).
+        return branch.left ?? branch.right ?? null;
+      }
+
+      // If we're here, we must delete a node that branches on both sides.
+      // We do this by swapping its nearest value up to replace it,
+      // and then deleting the node the swap was made from.
+      throw new Error("Delete not implemeted");
+    }
+    */
+
     find(value, branch = this._root) {
       if (branch == null) {
         return null;
@@ -26,6 +53,26 @@ export default (function() {
         return this.find(value, branch.left);
       } else {
         return this.find(value, branch.right);
+      }
+    }
+
+    findMaximum(branch = this._root) {
+      if (!branch) {
+        return null;
+      } else if (branch.right) {
+        return this.findMaximum(branch.right);
+      } else {
+        return branch.data;
+      }
+    }
+
+    findMinimum(branch = this._root) {
+      if (!branch) {
+        return null;
+      } else if (branch.left) {
+        return this.findMinimum(branch.left);
+      } else {
+        return branch.data;
       }
     }
 
