@@ -106,6 +106,25 @@ export default (function() {
       return 1 + Math.max(leftHeight, rightHeight);
     }
 
+    inOrder(callback, branch = this._root) {
+      if (!callback) {
+        throw new Error("inOrder requires a callback function " +
+          "that takes an argument for the current node's data.");
+      }
+
+      if (branch == null) {
+        return;
+      }
+
+      if (branch.left) {
+        this.inOrder(callback, branch.left);
+      }
+      callback(branch.data);
+      if (branch.right) {
+        this.inOrder(callback, branch.right);
+      }
+    }
+
     insert(value, branch = this._root) {
       if (branch == null) {
         const newNode = new Node(value);
