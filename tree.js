@@ -3,7 +3,7 @@ export default (function() {
     constructor(arr = []) {
       // The source array must be duplicate-free and sorted.
       const sortedArr = Array.from(new Set(arr)).sort((a, b) => a - b);
-      this._root = this.buildTree(sortedArr, 0, sortedArr.length - 1);
+      this._root = this.buildTree(sortedArr);
     }
 
     get left() {
@@ -18,7 +18,7 @@ export default (function() {
       return this._root;
     }
     
-    buildTree(sortedArr, firstIndex, lastIndex) {
+    buildTree(sortedArr, firstIndex = 0, lastIndex = sortedArr.length - 1) {
       if (lastIndex < firstIndex) {
         return null;
       }
@@ -276,6 +276,15 @@ export default (function() {
       callback(branch.data);
     }
    
+    rebalance() {
+      if (this.isBalanced()) {
+        return; // No need to change anything.
+      }
+
+      let sortedContents = [];
+      this.inOrder((value) => sortedContents.push(value));
+      this._root = this.buildTree(sortedContents);
+    }
   }
 
   class Node {
