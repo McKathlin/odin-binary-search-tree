@@ -45,18 +45,23 @@ logTests(randomTree);
 
 function logTests(tree) {
   console.log('=============');
+  // Basic info
   tree.prettyPrint();
   console.log('Height:', tree.height());
   console.log(`Range: ${tree.findMinimum()} to ${tree.findMaximum()}`);
+
+  // Balance checks
   console.log("Balanced?", tree.isBalanced());
-  tree.inOrder((value) => console.log("In order", value));
-  tree.levelOrder((value) => console.log("Level order", value));
-  tree.preOrder((value) => console.log("Pre-order", value));
-  tree.postOrder((value) => console.log("Post-order", value));
   tree.rebalance();
   console.log("After rebalance:");
   tree.prettyPrint();
   if (!tree.isBalanced()) {
     console.error("Rebalancing didn't balance the tree!");
   }
+
+  // Order checks
+  tree.levelOrder((value) => console.log("Level order", value));
+  tree.preOrder((value) => console.log("Pre-order", value));
+  tree.postOrder((value) => console.log("Post-order", value));
+  tree.inOrder((value) => console.log("In order", value));
 }
