@@ -1,4 +1,3 @@
-import tree from "./tree.js";
 import Tree from "./tree.js";
 
 let emptyTree = new Tree([]);
