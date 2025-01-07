@@ -5,6 +5,18 @@ export default (function() {
       const sortedArr = Array.from(new Set(arr)).sort((a, b) => a - b);
       this._root = this.buildTree(sortedArr, 0, sortedArr.length - 1);
     }
+
+    get left() {
+      return this._root.left;
+    }
+
+    get right() {
+      return this._root.right;
+    }
+
+    get root() {
+      return this._root;
+    }
     
     buildTree(sortedArr, firstIndex, lastIndex) {
       if (lastIndex < firstIndex) {
@@ -58,6 +70,26 @@ export default (function() {
       branch.data = nearestValue;
       this.deleteItem(nearestValue, sourceBranch);
       return branch;
+    }
+
+    depth(targetNode) {
+      const NOT_FOUND = -1;
+      if (!targetNode) {
+        return NOT_FOUND;
+      }
+      let depth = 0;
+      let branch = this._root;
+      while (branch != targetNode) {
+        if (!branch) {
+          return NOT_FOUND;
+        } else if (targetNode.data < branch.data) {
+          branch = branch.left;
+        } else {
+          branch = branch.right;
+        }
+        depth += 1;
+      }
+      return depth;
     }
 
     find(value, branch = this._root) {
